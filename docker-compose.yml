@@ -1,0 +1,26 @@
+version: '3'
+services:
+  msg-notif-app:
+    build:
+      context: ./power-plant-system
+      dockerfile: Dockerfile
+    container_name: power_plant_system
+    ports:
+      - "8083:8080"
+    depends_on:
+      - power-plant-system-db
+
+  power-plant-system-db:
+    image: mysql:5.7
+    container_name: power_plant_system_db
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_DATABASE: power_plant_system
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_PASSWORD: root
+    ports:
+      - "3320:3306"
+    expose:
+      - '3320'
